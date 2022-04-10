@@ -1,0 +1,25 @@
+﻿html {
+    background: #FFFFFF;
+    border-radius: 40px;
+    position: relative;
+}
+
+.wrapper {
+    display: flex;
+    background-color: #6B408C;
+    position: absolute;
+    width: 88px;
+    height: 900px;
+    left: 0px;
+    top: 0px;
+    border-radius: 0px 20px 20px 0px;
+}
+
+    .wrapper #content-wrapper {
+        width: 100%;
+        overflow-x: hidden;
+    }
+
+        .wrapper #content-wrapper #content {
+            flex: 1 0 auto;
+        }
