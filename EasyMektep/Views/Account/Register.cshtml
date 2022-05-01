@@ -1,0 +1,171 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - EasyMektep</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" />
+    <link rel="stylesheet" href="~/views/account/register.css" />
+</head>
+<body>
+    <header class="container mt-5">
+        <div class="flexC">
+            <div class="flexB">
+                <img src="~/icons/emA.svg" />
+            </div>
+            <div class="flexB ml-3">
+                <div class="title2 row">
+                    EASY MEKTEP
+                </div>
+                <div class="desc2 row">
+                    Easy education tracking
+                </div>
+            </div>
+        </div>
+    </header>
+    <section>
+        <div class="container">
+            <div class="row">
+                <div class="col-xxl-3 col-md-4 col-sm-5">
+                    <div id="mainStep" class="mt-5">
+                        <div class="flexC">
+                            <div class="flexB">
+                                <div>
+                                    <img src="~/icons/ellipseActive.svg" />
+                                </div>
+                            </div>
+                            <div class="flexB ml-3">
+                                <img src="~/icons/ellipse2.svg" />
+                            </div>
+                        </div>
+                        <div style="font-weight: 500; font-size: 14px; color: #493BAC">
+                            Step 1
+                        </div>
+                    </div>
+                    <div id="passStep" style="display:none" class="mt-5">
+                        <div class="flexC">
+                            <div class="flexB">
+                                <div>
+                                    <img src="~/icons/ellipse1.svg" />
+                                </div>
+                            </div>
+                            <div class="flexB ml-3">
+                                <img src="~/icons/ellipseActive.svg" />
+                            </div>
+                        </div>
+                        <div class="ml-5" style="font-weight: 500; font-size: 14px; color: #493BAC">
+                            Step 2
+                        </div>
+                    </div>
+                    <div id="main" class="mt-3">
+                        <div class="title1">
+                            Personal information
+                        </div>
+                        <div class="desc1">
+                            Enter your personal information details to continue the registration
+                        </div>
+                        <div class="mt-5">
+                            <div class="boxForm form-group">
+                                <label for="firstName" class="labelForm ml-2"><abbr style="color:#ffffff">_</abbr> First name <abbr style="color:#ffffff">_</abbr></label>
+                                <input type="text" placeholder="Enter your first name" class="form-control" id="firstName">
+                            </div>
+                            <div class="boxForm form-group mt-5">
+                                <label for="secondName" class="labelForm ml-2"><abbr style="color:#ffffff">_</abbr> Second name <abbr style="color:#ffffff">_</abbr></label>
+                                <input type="text" placeholder="Enter your second name" class="form-control" id="secondName">
+                            </div>
+                            <div class="boxForm form-group mt-5">
+                                <label for="email" class="labelForm ml-2"><abbr style="color:#ffffff">_</abbr> E-mail <abbr style="color:#ffffff">_</abbr></label>
+                                <input type="email" placeholder="Enter your e-mail" class="form-control" id="email" aria-describedby="emailHelp">
+                            </div>
+                            <div class="boxForm form-group mt-5">
+                                <label for="birthDay" class="labelForm ml-2"><abbr style="color:#ffffff">_</abbr> Birth day <abbr style="color:#ffffff">_</abbr></label>
+                                <input type="text" onfocus="(this.type='date')"  placeholder="Enter your birth day" class="form-control" id="birthDay">
+                            </div>
+                            <div class="boxFormRadio form-group form-check mt-5">
+                                <label class="labelFormEx"><abbr style="color:#ffffff">_</abbr> I am  <abbr style="color:#ffffff">_</abbr> </label>
+                                <div class="row mt-3 mb-2 ml-1 mr-1">
+                                    <div class="col">
+                                        <input type="radio" name="radio" class="form-check-input" id="woman">
+                                        <label class="form-check-label" for="woman">Woman</label>
+                                    </div>
+                                    <div class="col">
+                                        <input type="radio" name="radio" class="form-check-input" id="man">
+                                        <label class="form-check-label" for="man">Man</label>
+                                    </div>
+                                    <div class="col">
+                                        <input type="radio" name="radio" class="form-check-input" id="notSay">
+                                        <label class="form-check-label" for="notSay"><nobr>Prefer to not say</nobr></label>
+                                    </div>
+                                </div>
+
+
+                            </div>
+                            <button onclick="Next()" type="submit" class="btn btn-primary btn-block mt-5">Next</button>
+
+                        </div>
+                    </div>
+                    <div id="pass" style="display:none">
+                        <div class="title1">
+                            Create password
+                        </div>
+                        <div class="desc1">
+                            Create a password that has 8 symbols mininum
+                        </div>
+                        <div class="mt-5">
+                            <div class="boxForm form-group mt-5">
+                                <label for="password" class="labelForm ml-2"><abbr style="color:#ffffff">_</abbr> Password <abbr style="color:#ffffff">_</abbr></label>
+                                <input type="password" placeholder="Enter password" class="form-control" id="password">
+                            </div>
+                            <div class="boxForm form-group mt-5">
+                                <label for="repassword" class="labelForm ml-2"><abbr style="color:#ffffff">_</abbr> Reapet password <abbr style="color:#ffffff">_</abbr></label>
+                                <input type="password" placeholder="Enter password again" class="form-control" id="repassword">
+                            </div>
+
+                            <button type="submit" class="btn btn-primary btn-block mt-5">Next</button>
+                        </div>
+                    </div>
+                    <center>
+                        <div class="already mt-3">Already have an account? <a href="/Account/Login">Sign in now</a></div>
+                    </center>
+                </div>
+                <img class="imgLine" src="~/img/line.svg" />
+                <div class="col-xxl col-md-8 col-sm-7 mt-3">
+                    <center>
+                        <div class="title">
+                            Easy Mektep
+                        </div>
+                        <div class="desc">
+                            Education tracker, that helps to improve your skills
+                        </div>
+                        <div>
+                            <img id="imgRegister" src="~/img/Notebook.svg" />
+                        </div>
+                    </center>
+                </div>
+            </div>
+        </div>
+    </section>
+    <footer class="tac mt-5 mb-1">
+        <div class="container">
+            by clicking submit you agree to the Terms and Conditions
+        </div>
+    </footer>
+</body>
+</html>
+<script type="text/javascript" src="//code.jquery.com/jquery-1.11.0.min.js"></script>
+<script type="text/javascript" src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+<script type="text/javascript" src="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
+<script type="text/javascript">
+
+    function Next() {
+        document.getElementById("mainStep").style.display = "none";
+        document.getElementById("main").style.display = "none";
+        document.getElementById("passStep").style.display = "";
+        document.getElementById("pass").style.display = "";
+    }
+</script>

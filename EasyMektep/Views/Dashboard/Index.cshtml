@@ -1,1 +1,375 @@
-﻿
+﻿@{
+    ViewBag.Title = "Dashboard";
+    DateTime nowTime = DateTime.Now;
+    int maxDayInMonth = new DateTime(nowTime.Year, nowTime.Month + 1, 1).AddDays(-1).Day;
+    int beginWeekDay = (int)new DateTime(nowTime.Year, nowTime.Month, 1).DayOfWeek;
+    if (beginWeekDay == 0)
+        beginWeekDay = 7;
+    var dateFormatInfo = System.Globalization.CultureInfo.GetCultureInfo("en-GB").DateTimeFormat;
+
+}
+<head>
+    <link rel="stylesheet" href="~/views/dashboard/index.css" />
+    <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css" />
+    <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick-theme.css" />
+</head>
+@section scripts
+{
+    <script type="text/javascript" src="//code.jquery.com/jquery-1.11.0.min.js"></script>
+    <script type="text/javascript" src="//www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript" src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+    <script type="text/javascript" src="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
+    <script type="text/javascript">
+        google.charts.load('current', { 'packages': ['corechart'] });
+        google.charts.setOnLoadCallback(drawChart);
+        google.charts.setOnLoadCallback(drawChartPie);
+
+        $(document).ready(function () {
+            document.getElementById('mainRow').style.display = '';
+            $('.single-item').slick({
+                infinite: true,
+                dots: true,
+                autoplay: false,
+                autoplaySpeed: 3000,
+                fade: false,
+                fadeSpeed: 1000,
+                cssEase: 'linear',
+                arrows: true,
+                dotsClass: 'slick-dots-Re',
+                prevArrow: '<img class="prevArrow" src="../img/VectorL.svg" />',
+                nextArrow: '<img class="nextArrow" src="../img/VectorR.svg" />'
+            }
+            );
+            setInterval(startTime, 100);
+            if (window.matchMedia("(min-width: 1200px)").matches) {
+                document.getElementById('calendar').className = 'taskEx col-3';
+                document.getElementById('slick').className = 'col';
+                document.getElementById('mainRow').style.display = 'flex';
+            }
+        });
+        //#6B408C
+        function drawChart() {
+            var data = new google.visualization.DataTable();
+            data.addColumn('date', 'xs');
+            data.addColumn('number', 'y');
+            data.addRows([
+                [new Date('2022-01-31'), 1], [new Date('2022-02-01'), 3], [new Date('2022-02-02'), 1]
+            ]);
+
+            var dataPC = new google.visualization.DataTable();
+            dataPC.addColumn('date', 'xs');
+            dataPC.addColumn('number', 'y');
+            dataPC.addRows([
+                [new Date('2022-01-31'), 1], [new Date('2022-02-01'), 3], [new Date('2022-02-02'), 1],
+                [new Date('2022-02-03'), 1.2], [new Date('2022-02-04'), 2.7], [new Date('2022-02-05'), 1], [new Date('2022-02-06'), 0.9]
+            ]);
+
+            var options = {
+                curveType: 'function',
+                hAxis: {
+                    format: 'dd/MM',
+                },
+                colors: ['#6B408C'],
+                'chartArea': { 'width': '90%', 'height': '80%' },
+                legend: 'none',
+                pointSize: 5
+            };
+
+            var chart = new google.visualization.LineChart(document.getElementById('curve_chart'));
+            var chartPC = new google.visualization.LineChart(document.getElementById('curve_chartPC'));
+            chart.draw(data, options);
+            chartPC.draw(dataPC, options);
+        }
+        function drawChartPie() {
+            var data = google.visualization.arrayToDataTable([
+                ['State', 'Percent'],
+                ['86%', 86], ['14%', 14]
+            ]);
+
+            var options = {
+                legend: 'none',
+                pieStartAngle: 90,
+                pieSliceText: 'percentage',
+                pieSliceTextStyle: { fontName: 'Poppins', fontSize: 14, fontWeight: 400 },
+                slices: {
+                    0: {
+                        color: '#6B408C',
+                    },
+                    1: { color: '#37C24E', offset: 0.2 }
+                }
+            };
+
+            var chart = new google.visualization.PieChart(document.getElementById('piechart'));
+            var chartPC = new google.visualization.PieChart(document.getElementById('piechartPC'));
+            chart.draw(data, options);
+            chartPC.draw(data, options);
+        }
+        function startTime() {
+            const today = new Date();
+            let h = today.getHours();
+            let m = today.getMinutes();
+            m = checkTime(m);
+            let ampm = (h >= 12) ? "PM" : "AM";
+            document.getElementById('timeJS').innerHTML = h + ":" + m + " " + ampm;
+
+        }
+
+        function checkTime(i) {
+            if (i < 10) { i = "0" + i };  // add zero in front of numbers < 10
+            return i;
+        }
+
+
+    </script>
+}
+<div class="row-form" id="mainRow" style="display:none">
+    <div id="slick">
+        <div class="single-item col col-xxl-8" style="margin-bottom: 0px;">
+            <div>
+                <div class="bannerMobile">
+                    <div class="bannerCol">
+                        <div class="row-form"><p class="bannerTitle">Top 5 books for <br /> self-development</p></div>
+                        <div class="row-form"><p class="bannerDesc">British scientists have found out that in order to develop yourself you need to read a lot of books and here are collected books for you</p></div>
+
+                        <div class="row-form" style="display: inline-flex">
+                            <div class="col" style="align-self: center;"><button class="btn btn-block bannerButton"><p class="bannerButtonText">More</p></button></div>
+                            <div class="col"><img class="bannerImg" src="~/img/BannerFirst.svg" /></div>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="bannerPc">
+                    <div class="col" style="padding: 24px;margin-left: 24px;">
+                        <div><p class="bannerTitle">Top 5 books for <br /> self-development</p></div>
+                        <div><p class="bannerDesc">British scientists have found out that in order to develop yourself you need to read a lot of books and here are collected books for you</p></div>
+                        <div class="col-5 mt-4"><button class="btn btn-block bannerButton"><p class="bannerButtonText justify-content-center">More</p></button></div>
+                    </div>
+                    <div class="col-5"><img class="bannerImg" src="~/img/BannerFirst.svg" /></div>
+                </div>
+
+            </div>
+            <div>
+                <div class="bannerMobile">
+                    <div class="bannerCol">
+                        <div class="row-form"><p class="bannerTitle">Top 5 books for <br /> self-development</p></div>
+                        <div class="row-form"><p class="bannerDesc">British scientists have found out that in order to develop yourself you need to read a lot of books and here are collected books for you</p></div>
+
+                        <div class="row-form" style="display: inline-flex">
+                            <div class="col" style="align-self: center;"><button class="btn btn-block bannerButton"><p class="bannerButtonText">More</p></button></div>
+                            <div class="col"><img class="bannerImg" src="~/img/BannerFirst.svg" /></div>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="bannerPc">
+                    <div class="col" style="padding: 24px;margin-left: 24px;">
+                        <div><p class="bannerTitle">Top 5 books for <br /> self-development</p></div>
+                        <div><p class="bannerDesc">British scientists have found out that in order to develop yourself you need to read a lot of books and here are collected books for you</p></div>
+                        <div class="col-5 mt-4"><button class="btn btn-block bannerButton"><p class="bannerButtonText justify-content-center">More</p></button></div>
+                    </div>
+                    <div class="col-5"><img class="bannerImg" src="~/img/BannerFirst.svg" /></div>
+                </div>
+
+            </div>
+            <div>
+                <div class="bannerMobile">
+                    <div class="bannerCol">
+                        <div class="row-form"><p class="bannerTitle">Top 5 books for <br /> self-development</p></div>
+                        <div class="row-form"><p class="bannerDesc">British scientists have found out that in order to develop yourself you need to read a lot of books and here are collected books for you</p></div>
+
+                        <div class="row-form" style="display: inline-flex">
+                            <div class="col" style="align-self: center;"><button class="btn btn-block bannerButton"><p class="bannerButtonText">More</p></button></div>
+                            <div class="col"><img class="bannerImg" src="~/img/BannerFirst.svg" /></div>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="bannerPc">
+                    <div class="col" style="padding: 24px;margin-left: 24px;">
+                        <div><p class="bannerTitle">Top 5 books for <br /> self-development</p></div>
+                        <div><p class="bannerDesc">British scientists have found out that in order to develop yourself you need to read a lot of books and here are collected books for you</p></div>
+                        <div class="col-5 mt-4"><button class="btn btn-block bannerButton"><p class="bannerButtonText justify-content-center">More</p></button></div>
+                    </div>
+                    <div class="col-5"><img class="bannerImg" src="~/img/BannerFirst.svg" /></div>
+                </div>
+
+            </div>
+            <div>
+                <div class="bannerMobile">
+                    <div class="bannerCol">
+                        <div class="row-form"><p class="bannerTitle">Top 5 books for <br /> self-development</p></div>
+                        <div class="row-form"><p class="bannerDesc">British scientists have found out that in order to develop yourself you need to read a lot of books and here are collected books for you</p></div>
+
+                        <div class="row-form" style="display: inline-flex">
+                            <div class="col" style="align-self: center;"><button class="btn btn-block bannerButton"><p class="bannerButtonText">More</p></button></div>
+                            <div class="col"><img class="bannerImg" src="~/img/BannerFirst.svg" /></div>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="bannerPc">
+                    <div class="col" style="padding: 24px;margin-left: 24px;">
+                        <div><p class="bannerTitle">Top 5 books for <br /> self-development</p></div>
+                        <div><p class="bannerDesc">British scientists have found out that in order to develop yourself you need to read a lot of books and here are collected books for you</p></div>
+                        <div class="col-5 mt-4"><button style="margin-bottom: 17%;" class="btn btn-block bannerButton"><p class="bannerButtonText justify-content-center">More</p></button></div>
+                    </div>
+                    <div class="col-5"><img class="bannerImg" src="~/img/BannerFirst.svg" /></div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <div class="task col" id="calendar">
+        <div class="ml-5">
+            <div class="titleDiv" id="timeJS"></div>
+            <div class="calendarDay mb-3" id="dayJS">@nowTime.DayOfWeek, @dateFormatInfo.GetMonthName(nowTime.Month)  @nowTime.Day</div>
+        </div>
+        <ul class="weekdays">
+            <li>mn</li>
+            <li>tu</li>
+            <li>we</li>
+            <li>th</li>
+            <li>fr</li>
+            <li>st</li>
+            <li>sn</li>
+        </ul>
+
+        <ul class="days">
+            @for (int i = 1; i < beginWeekDay; i++)
+            {
+                <li></li>
+            }
+            @for (int i = 1; i <= maxDayInMonth; i++)
+            {
+                if (DateTime.Now.Day == i)
+                {
+                    <li><span class="active">@i</span></li>
+                }
+                else
+                {
+                    <li>@i</li>
+                }
+            }
+        </ul>
+    </div>
+
+</div>
+<div class="chartMobile">
+    <div class="task col">
+        <div class="titleDiv">Number of completed tasks</div>
+        <div class="row-form" style="display: flex;">
+            <div class="col" style="flex: 0 1 auto;">31/01/2022 - 06/02/2022</div>
+            <div class="col" style="flex: 0 1 auto;">Total</div>
+            <div class="col" style="flex: 0 1 auto;">New</div>
+        </div>
+        <div id="curve_chart"></div>
+    </div>
+
+    <div class="task col">
+        <div class="row-form" style="display:flex;">
+
+            <div class="titleDiv">Completed tasks</div>
+            <div class="col" style="text-align:right">
+                <a href="*">More</a>
+            </div>
+        </div>
+        <div class="row-form" style="display:flex;">
+
+            <div>Total</div>
+            <div>Month</div>
+        </div>
+        <div id="piechart"></div>
+    </div>
+</div>
+
+<div class="chartPC">
+    <div class="task col-8" style="margin-right:15px;">
+        <div class="row-form" style="display: inline-flex;margin-left: 5%;">
+            <div class="titleDiv col-7">Number of completed tasks</div>
+
+            <div class="col-6 align-self-center" style="font-size:12px">31/01/2022 - 06/02/2022</div>
+            <div class="col">Total</div>
+            <div class="col">New</div>
+        </div>
+        <div id="curve_chartPC"></div>
+    </div>
+
+    <div class="task col">
+        <div class="row-form" style="display: flex">
+
+            <div class="titleDiv" style="margin-left: 5%;">Completed tasks</div>
+            <div class="col" style="text-align:right">
+                <a href="*">More</a>
+            </div>
+        </div>
+        <div class="row-form" style="display:flex;">
+            <div class="col">
+                <div id="piechartPC"></div>
+            </div>
+            <div class="col">
+                <div class="mt-5" style="display:inline-flex">
+                    <div class="col">Total</div>
+                    <div class="col">Month</div>
+                </div>
+                <div class="mt-4" style="font-size:14px">Total amount of tasks 100</div>
+                <div class="mt-2" style="display:inline-flex">
+                    <div class="col" style="font-size:12px">Completed</div>
+                    <div class="col" style="font-size:12px">Uncompleted</div>
+                </div>
+            </div>
+        </div>
+        
+    </div>
+</div>
+
+<div class="lessonMobile">
+    <div class="task" style="background-image: url('/img/course1.svg');">
+        <div class="row-form">
+            <div class="titleCourse col-8  float-left">Math for Computer Science</div>
+            <div class="titleCourseEx col-1 align-self-center float-right">...</div>
+        </div>
+        <div class="footerCourse">Maria Nemchenko</div>
+    </div>
+
+    <div class="task" style="background-image: url('/img/course2.svg');">
+        <div class="row-form">
+            <div class="titleCourse col-8  float-left">Math for Computer Science</div>
+            <div class="titleCourseEx col-1 align-self-center float-right">...</div>
+        </div>
+        <div class="footerCourse">Maria Nemchenko</div>
+    </div>
+
+    <div class="task" style="background-image: url('/img/course3.svg');">
+        <div class="row-form">
+            <div class="titleCourse col-8  float-left">Math for Computer Science</div>
+            <div class="titleCourseEx col-1 align-self-center float-right">...</div>
+        </div>
+        <div class="footerCourse">Maria Nemchenko</div>
+    </div>
+</div>
+<div class="lessonPC">
+    <div class="task col" style="background-image: url('/img/course1.svg');">
+        <div class="row-form">
+            <div class="titleCourse col-8  float-left">Math for Computer Science</div>
+            <div class="titleCourseEx col-1 align-self-center float-right">...</div>
+        </div>
+        <div class="footerCourse">Maria Nemchenko</div>
+    </div>
+
+    <div class="task col" style="background-image: url('/img/course2.svg');">
+        <div class="row-form">
+            <div class="titleCourse col-8  float-left">Math for Computer Science</div>
+            <div class="titleCourseEx col-1 align-self-center float-right">...</div>
+        </div>
+        <div class="footerCourse">Maria Nemchenko</div>
+    </div>
+
+    <div class="task col" style="background-image: url('/img/course3.svg');">
+        <div class="row-form">
+            <div class="titleCourse col-8  float-left">Math for Computer Science</div>
+            <div class="titleCourseEx col-1 align-self-center float-right">...</div>
+        </div>
+        <div class="footerCourse">Maria Nemchenko</div>
+    </div>
+</div>
+    
