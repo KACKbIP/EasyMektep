@@ -35,11 +35,9 @@ body {
     background-color: #FFF9E2;
     background-image: url('/img/timerBG.svg');
     background-size: 100%;
-    position:absolute;
     top:0%;
     right:0%;
     left:0%;
-    bottom:0%;
 
 }
 html {
@@ -120,4 +118,16 @@ html {
     width: 52%;
     margin-left: auto;
     margin-right: auto;
+}
+
+@media (max-width: 1000px) {
+    .tick {
+        font-size:36px;
+    }
+    .mainTimer {
+        width:100%;
+    }
+    #setTimer {
+        width:70%;
+    }
 }

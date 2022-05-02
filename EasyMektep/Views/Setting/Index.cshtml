@@ -7,26 +7,38 @@
     <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css" />
     <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick-theme.css" />
 </head>
-
+@section scripts
+{
+    <script type="text/javascript" src="//code.jquery.com/jquery-1.11.0.min.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            if (window.matchMedia("(max-width: 1279px)").matches) {
+                document.getElementById('tempForPC').style.display = 'none';
+                document.getElementById('personPhoto').style.display = 'none';
+                document.getElementById('personInfo').className = 'col';
+            }
+        });
+    </script>
+}
 <div style="display:flex">
     <div class="col-2 mr-5" style="padding-left:0px;">
         <div style="display:flex">
-            <div style="padding-left: 0px;" class="col-1"><img src="~/icons/personal.svg"/></div>
+            <div style="padding-left: 0px;" class="col-1"><img src="~/icons/personal.svg" /></div>
             <div style="padding-left: 10px; font-weight: 600; font-size: 16px; color: #6B408C;" class="col">Personal data</div>
         </div>
         <div class="mt-4" style="display:flex">
-            <div style="padding-left: 0px;" class="col-1"><img src="~/icons/security.svg"/></div>
+            <div style="padding-left: 0px;" class="col-1"><img src="~/icons/security.svg" /></div>
             <div style="padding-left: 10px; font-size: 16px;" class="col">Security</div>
         </div>
         <div style="font-size: 14px;color: #939DA8;" class="mt-3">Privacy policy</div>
         <div style="font-size: 14px;color: #939DA8;" class="mt-3">Change password</div>
     </div>
-    <div class="col-1 mr-5">
+    <div id="personPhoto" class="col-1 mr-5">
         <div>
-            <img style="height: auto;width: 100%; border-radius: 100px;" src="@User.FindFirst(System.Security.Claims.ClaimTypes.Uri).Value"/>
+            <img style="height: auto;width: 100%; border-radius: 100px;" src="@User.FindFirst(System.Security.Claims.ClaimTypes.Uri).Value" />
         </div>
     </div>
-    <div class="col-6">
+    <div id="personInfo" class="col-6">
         <div style="font-weight: 500; font-size: 16px; color:#222222">Personal data</div>
         <div style="font-weight: 400; font-size: 14px; color: #676565;" class="mt-3">Your data is only visible to you</div>
         <div class="mt-3">
@@ -55,9 +67,9 @@
                     <label class="labelForm"><abbr style="color:#ffffff">_</abbr>Phone number <abbr style="color:#ffffff">_</abbr></label>
                     <label class="form-control mt-2">@User.FindFirst(ClaimTypes.MobilePhone).Value</label>
                 </div>
-                <div class="col mt-3"></div>
-                </div>
+                <div id="tempForPC" class="col mt-3"></div>
             </div>
+        </div>
     </div>
 
 </div>
