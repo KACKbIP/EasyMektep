@@ -54,10 +54,9 @@ namespace EasyMektep.Controllers
             return View();
         }
         [HttpPost]
-        public IActionResult Register(UserModel model)
+        public void Register(UserModel model)
         {
             _repository.Register(model);
-            return this.RedirectToAction("Index", "Dashboard");
         }
         public IActionResult Logout()
         {

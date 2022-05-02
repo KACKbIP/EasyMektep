@@ -36,6 +36,100 @@
             function (start, end, label) {
                 window.location.href = "/Dashboard/Index?startDate=" + start.format('YYYY-MM-DD') + '&endDate=' + end.format('YYYY-MM-DD');
             });
+        function CurveChart(range) {
+            if (range == 'Total') {
+                document.getElementById('totalOnM').style.display = '';
+                document.getElementById('totalOn').style.display = '';
+                document.getElementById('newOnM').style.display = 'none';
+                document.getElementById('newOn').style.display = 'none';
+                document.getElementById('totalOff').style.display = 'none';
+                document.getElementById('totalOffM').style.display = 'none';
+                document.getElementById('newOffM').style.display = '';
+                document.getElementById('newOff').style.display = '';
+                var data = new google.visualization.DataTable();
+            data.addColumn('date', 'xs');
+            data.addColumn('number', 'y');
+            var arrM = [];
+            @foreach (var item in Model.TotalCompleted.Take(3).ToList())
+            {
+            	@:arrM.push([new Date("@item.Date"), parseInt("@item.Number")])
+            }
+            data.addRows(arrM);
+
+
+            var dataPC = new google.visualization.DataTable();
+            dataPC.addColumn('date', 'xs');
+            dataPC.addColumn('number', 'y');
+            var arr = [];
+            @foreach (var item in Model.TotalCompleted)
+            {
+            	@:arr.push([new Date("@item.Date"), parseInt("@item.Number")])
+            }
+            dataPC.addRows(arr);
+
+            var options = {
+                curveType: 'function',
+                hAxis: {
+                    format: 'dd/MM',
+                },
+                colors: ['#6B408C'],
+                'chartArea': { 'width': '90%', 'height': '80%' },
+                legend: 'none',
+                pointSize: 5
+            };
+
+            var chart = new google.visualization.LineChart(document.getElementById('curve_chart'));
+            var chartPC = new google.visualization.LineChart(document.getElementById('curve_chartPC'));
+            chart.draw(data, options);
+            chartPC.draw(dataPC, options);
+            }
+            else {
+                document.getElementById('totalOnM').style.display = 'none';
+                document.getElementById('totalOn').style.display = 'none';
+                document.getElementById('newOnM').style.display = '';
+                document.getElementById('newOn').style.display = '';
+                document.getElementById('totalOff').style.display = '';
+                document.getElementById('totalOffM').style.display = '';
+                document.getElementById('newOffM').style.display = 'none';
+                document.getElementById('newOff').style.display = 'none';
+                var data = new google.visualization.DataTable();
+            data.addColumn('date', 'xs');
+            data.addColumn('number', 'y');
+            var arrM = [];
+            @foreach (var item in Model.NewCompleted.Take(3).ToList())
+            {
+            	@:arrM.push([new Date("@item.Date"), parseInt("@item.Number")])
+            }
+            data.addRows(arrM);
+
+
+            var dataPC = new google.visualization.DataTable();
+            dataPC.addColumn('date', 'xs');
+            dataPC.addColumn('number', 'y');
+            var arr = [];
+            @foreach (var item in Model.NewCompleted)
+            {
+            	@:arr.push([new Date("@item.Date"), parseInt("@item.Number")])
+            }
+            dataPC.addRows(arr);
+
+            var options = {
+                curveType: 'function',
+                hAxis: {
+                    format: 'dd/MM',
+                },
+                colors: ['#6B408C'],
+                'chartArea': { 'width': '90%', 'height': '80%' },
+                legend: 'none',
+                pointSize: 5
+            };
+
+            var chart = new google.visualization.LineChart(document.getElementById('curve_chart'));
+            var chartPC = new google.visualization.LineChart(document.getElementById('curve_chartPC'));
+            chart.draw(data, options);
+            chartPC.draw(dataPC, options);
+            }
+        }
         function Complete(id) {
             $.ajax({
                 type: "POST",
@@ -138,17 +232,22 @@
             var data = new google.visualization.DataTable();
             data.addColumn('date', 'xs');
             data.addColumn('number', 'y');
-            data.addRows([
-                [new Date('2022-01-31'), 1], [new Date('2022-02-01'), 3], [new Date('2022-02-02'), 1]
-            ]);
+            var arrM = [];
+            @foreach (var item in Model.TotalCompleted.Take(3).ToList())
+            {
+            	@:arrM.push([new Date("@item.Date"), parseInt("@item.Number")])
+            }
+            data.addRows(arrM);
 
             var dataPC = new google.visualization.DataTable();
             dataPC.addColumn('date', 'xs');
             dataPC.addColumn('number', 'y');
-            dataPC.addRows([
-                [new Date('2022-01-31'), 1], [new Date('2022-02-01'), 3], [new Date('2022-02-02'), 1],
-                [new Date('2022-02-03'), 1.2], [new Date('2022-02-04'), 2.7], [new Date('2022-02-05'), 1], [new Date('2022-02-06'), 0.9]
-            ]);
+            var arr = [];
+            @foreach (var item in Model.TotalCompleted)
+            {
+            	@:arr.push([new Date("@item.Date"), parseInt("@item.Number")])
+            }
+            dataPC.addRows(arr);
 
             var options = {
                 curveType: 'function',
@@ -278,8 +377,26 @@
         <div class="titleDiv">Number of completed tasks</div>
         <div class="row-form" style="display: flex;">
             <div class="col" style="flex: 0 1 auto;"><input class="daterange float-right" type="text" name="daterange" /></div>
-            <div class="col" style="flex: 0 1 auto;">Total</div>
-            <div class="col" style="flex: 0 1 auto;">New</div>
+            <div class="col" style="flex: 0 1 auto;">
+                <div class="col">
+                    <img id="totalOnM" src="~/icons/radioOnBut.svg" />
+                    <img style="display:none" id="totalOffM" src="~/icons/radioOffBut.svg" />
+                </div>
+                <div class="col">
+                    Total
+                </div>
+            </div>
+            <div class="col" style="flex: 0 1 auto;">
+                <div onclick="CurveChart('New')" class="col">
+                    <div class="col">
+                        <img style="display:none" id="newOnM" src="~/icons/radioOnBut.svg" />
+                        <img id="newOffM" src="~/icons/radioOffBut.svg" />
+                    </div>
+                    <div class="col">
+                        New
+                    </div>
+                </div>
+            </div>
         </div>
         <div id="curve_chart"></div>
     </div>
@@ -308,8 +425,24 @@
 
             <div class="col" style="font-size:12px"><input class="daterange" type="text" name="daterange" /></div>
             <div class="col float-right" style="display:flex">
-                <div class="col">Total</div>
-                <div class="col">New</div>
+                <div onclick="CurveChart('Total')" class="col" style="display:flex">
+                    <div class="col">
+                        <img class="float-right"  id="totalOn" src="~/icons/radioOnBut.svg" />
+                        <img class="float-right"  style="display:none" id="totalOff" src="~/icons/radioOffBut.svg" />
+                    </div>
+                    <div class="col">
+                        Total
+                    </div>
+                </div>
+                <div onclick="CurveChart('New')" class="col" style="display:flex">
+                    <div class="col">
+                        <img class="float-right" style="display:none" id="newOn" src="~/icons/radioOnBut.svg" />
+                        <img class="float-right"  id="newOff" src="~/icons/radioOffBut.svg" />
+                    </div>
+                    <div class="col">
+                        New
+                    </div>
+                </div>
             </div>
         </div>
         <div id="curve_chartPC"></div>
@@ -361,7 +494,7 @@
         <div class="task col" style="background-image: url('@course.ImgUrl');">
             <div class="row-form">
                 <div onclick="location.href='/Projects/Course?Id=@course.Id'" style="cursor:pointer" class="titleCourse col-8  float-left">@course.Title</div>
-                <div class="titleCourseEx col-1 align-self-center float-right"  style="cursor:pointer" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">...</div>
+                <div class="titleCourseEx col-1 align-self-center float-right" style="cursor:pointer" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">...</div>
                 <div class="dropdown-menu courseDropdown" aria-labelledby="dropdownMenuLink">
                     <a class="dropdown-item courseDropdownitem" href="#" onclick="Complete(@course.Id)">Mark as complete</a>
                     <a class="dropdown-item courseDropdownitem" style="color: #EB5757" href="#" onclick="Delete(@course.Id)">Delete course</a>
