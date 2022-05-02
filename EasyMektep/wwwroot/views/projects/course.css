@@ -63,3 +63,12 @@
     font-weight: 400;
     font-size: 14px;
 }
+@media (max-width: 1000px) {
+    .description {
+        font-size:12px;
+    }
+    .row {
+        margin-left:0px;
+        margin-right:0px;
+    }
+}

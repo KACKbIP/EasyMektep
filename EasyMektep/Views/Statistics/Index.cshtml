@@ -36,7 +36,13 @@
         google.charts.setOnLoadCallback(drawChartDonat);
 
         $(document).ready(function () {
-            if (window.matchMedia("(min-width: 1200px)").matches) {
+            if (window.matchMedia("(max-width: 1200px)").matches) {
+                document.getElementById('mainDiv').style.display = 'block';
+                document.getElementById('block').className = 'block col';
+                document.getElementById('curveTitle').className = '';
+                document.getElementById('curveTitle').style.display = 'block';
+                document.getElementById('daterange').className = 'daterange';
+                document.getElementById('descCompleted').style.display = '';
             }
             document.getElementById('All time').style.display = 'inline-flex';
         });
@@ -119,8 +125,16 @@
             }
 
 
-            let larguraGraficoFora = 200;
-            let alturaGraficoFora = 200;
+            let larguraGraficoFora = 0;
+            let alturaGraficoFora = 0;
+            if (window.matchMedia("(max-width: 1200px)").matches) {
+                larguraGraficoFora = 150;
+                alturaGraficoFora = 150;
+            }
+            else {
+                larguraGraficoFora = 200;
+                alturaGraficoFora = 200;
+            }
             let furoGraficoFora = 0.7;
             var data = google.visualization.arrayToDataTable(
                 [
@@ -206,12 +220,24 @@
             chartPC.draw(dataPC, options);
         }
         function drawChartPie() {
+            let larguraGraficoFora = 0;
+            let alturaGraficoFora = 0;
+            if (window.matchMedia("(max-width: 1200px)").matches) {
+                larguraGraficoFora = 130;
+                alturaGraficoFora = 130;
+            }
+            else {
+                larguraGraficoFora = 200;
+                alturaGraficoFora = 200;
+            }
             var data = google.visualization.arrayToDataTable([
                 ['State', 'Percent'],
                 ['86%', @Html.Raw(Model.Completed.Where(c => c.Range == "Total").FirstOrDefault().Completed)], ['14%', @Html.Raw(Model.Completed.Where(c => c.Range == "Total").FirstOrDefault().Uncompleted)]
             ]);
 
             var options = {
+                width: larguraGraficoFora,
+                height: alturaGraficoFora,
                 legend: 'none',
                 pieStartAngle: 90,
                 pieSliceText: 'percentage',
@@ -231,8 +257,16 @@
         }
         function drawChartDonat() {
             //control is here
-            let larguraGraficoFora = 200;
-            let alturaGraficoFora = 200;
+            let larguraGraficoFora = 0;
+            let alturaGraficoFora = 0;
+            if (window.matchMedia("(max-width: 1200px)").matches) {
+                larguraGraficoFora = 150;
+                alturaGraficoFora = 150;
+            }
+            else {
+                larguraGraficoFora = 200;
+                alturaGraficoFora = 200;
+            }
             let furoGraficoFora = 0.7;
             var data = google.visualization.arrayToDataTable(
                 [
@@ -301,13 +335,13 @@
         }
     </script>
 }
-<div class="statisticDesktop mt-5" style="display:flex">
-    <div class="block col-7">
-        <div class="row" style="display: flex;">
+<div class="statisticDesktop mt-5" id="mainDiv" style="display:flex">
+    <div class="block col-7" id="block">
+        <div id="curveTitle" class="row" style="display: flex;">
             <div class="titleDiv col" style="white-space:nowrap">Number of completed tasks</div>
 
             <div class="col" style="font-size:12px">
-                <input class="daterange float-right" type="text" name="daterange"/>
+                <input id="daterange" class="daterange float-right" type="text" name="daterange"/>
             </div>
         </div>
         <div style="width:100%; height: 100%" id="curve_chartPC"></div>
@@ -346,7 +380,7 @@
                 }
             </div>
             <div class="mt-5" style="display:flex">
-                <div class="col" style=" height: 0px; margin-bottom: 35%; ">
+                <div class="donut col">
                     <div>
                         <div id="donutchartPC">
                         </div>
@@ -393,13 +427,13 @@
                 <div class="col">
                     <div id="piechartPC"></div>
                 </div>
-                <div class="col">
-                    <div class="mt-5" style="display:inline-flex">
+                <div class="col align-self-center">
+                    <div style="display:inline-flex">
                         <div onclick="Completed('completedTotal')" id="completedTotal" class="completedActive col">Total</div>
                         <div onclick="Completed('completedMonth')" id="completedMonth" class="completed col">Month</div>
                     </div>
                     <div class="mt-4" style="font-size:14px">Total amount of tasks 100</div>
-                    <div class="mt-2" style="display:inline-flex">
+                    <div class="mt-2" id="descCompleted" style="display:inline-flex">
                         <div class="col" style="display:flex">
                             <div class="col" style="padding-right: 0px;padding-left: 0px;"><img src="~/img/green.svg" /></div>
                             <div class="col align-self-center" style="padding-right: 0px; font-size: 12px">Completed</div>

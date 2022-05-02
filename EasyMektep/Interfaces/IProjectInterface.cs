@@ -8,14 +8,15 @@ namespace EasyMektep.Interfaces
 {
     public interface IProjectInterface
     {
-        List<CourseCardModel> GetLastOpened();
-        List<CourseCardModel> GetNewCourses();
-        List<CourseCardModel> GetAllCourses();
-        public void Complete(int id);
-        public void Delete(int id);
-        CourseModel GetCourse(int id);
-        public void CompleteAssignment(int id);
-        public void DeleteAssignment(int id);
-        AssignmentCardModel GetAssignment(int id);
+        List<CourseCardModel> GetLastOpened(string userIdentifier);
+        List<CourseCardModel> GetNewCourses(string userIdentifier);
+        List<CourseCardModel> GetAllCourses(string userIdentifier);
+        void Complete(string userIdentifier, int id);
+        void Delete(string userIdentifier, int id);
+        CourseModel GetCourse(string userIdentifier, int id);
+        void CompleteAssignment(string userIdentifier, int id);
+        void DeleteAssignment(string userIdentifier, int id);
+        AssignmentCardModel GetAssignment(string userIdentifier, int id);
+        void AddAssignment(string userIdentifier, int id, string yourId, string description, List<string> files);
     }
 }

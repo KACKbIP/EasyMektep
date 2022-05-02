@@ -9,33 +9,15 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <script type="text/javascript" src="//code.jquery.com/jquery-1.11.0.min.js"></script>
     <script type="text/javascript">
-        function Add() {
-            let description = document.getElementById('description').value;
-            let yourId = document.getElementById('yourId').value;
-            let files = document.getElementById('fileElem').files;
-            if (files.length > 0) {
-                var formData = new FormData();
+        $(document).ready(function () {
+            if (window.matchMedia("(max-width: 1279px)").matches) {
+                var els = document.getElementsByClassName("col-2");
 
-                for (var i = 0; i < files.length; i++) {
-                    formData.append("files"+i, files[i]);
-                }             
+                Array.prototype.forEach.call(els, function (el) {
+                    el.className = 'col';
+                });
             }
-            $.ajax({
-
-                url: "/Projects/Add",
-                data: formData,
-                contentType: false,
-                type: "POST",
-                success: function (data) {
-                    document.location.reload();
-                    document.getElementById('instruction').style.display = 'none';
-                    document.getElementById('submission').style.display = '';
-
-                    document.getElementById('instructions').className = 'assignment col'
-                    document.getElementById('mySubmission').className = 'assignmentAct col'
-                }
-            });
-        }
+        });
         function handleFiles(files) {
             for (var i = 0; i < files.length; i++) {
                 var file = files[i];
@@ -50,6 +32,11 @@
                 var fname = document.createElement("div");
                 fname.innerText = file.name;
                 fname.classList.add("fname");
+                var inputFname = document.createElement("input");
+                inputFname.type = 'text';
+                inputFname.style.display = 'none';
+                inputFname.value = file.name;
+                inputFname.name = 'fname';
                 var fsize = document.createElement("div");
                 fsize.innerText = Math.round(file.size / 1024) + " KB";
                 fsize.classList.add("fsize");
@@ -65,18 +52,18 @@
                 else {
                     var img = document.createElement("img");
                     img.classList.add("obj");
-                    img.file = file;  
+                    img.file = file;
                     var f = document.createElement("div");
                     f.appendChild(img);
                     f.classList.add("colObj");
                     div.appendChild(f);
                 }
-                
 
+                fcol.appendChild(inputFname);
                 fcol.appendChild(fname);
                 fcol.appendChild(fsize);
 
-                
+
                 div.appendChild(fcol);
 
                 div.appendChild(fcolRight);
@@ -106,7 +93,7 @@
 
         }
         function Show(img) {
-            var modal = document.getElementById("myModal");         
+            var modal = document.getElementById("myModal");
             var modalImg = document.getElementById("img01");
             modal.style.display = "block";
             modalImg.src = img.src;
@@ -115,8 +102,8 @@
             }
         }
         function AddSubmittion() {
-            var modal = document.getElementById("modalAdd");   
-            var modalBack = document.getElementById("modalBack");   
+            var modal = document.getElementById("modalAdd");
+            var modalBack = document.getElementById("modalBack");
             modal.style.display = "block";
             modalBack.style.display = "block";
             modalBack.onclick = function () {
@@ -216,57 +203,58 @@
     <div id="modalBack" class="modalBack">
     </div>
         <div class="block">
-            <div class="blockRow">
-                <div class="col">
-                    <div style="font-size: 14px;color: #939DA8;">Add submission</div>
-                    <div>
-                        <div class="dropBlock file-upload-wrapper mt-3">
-                            <center>
-                                <div>
-                                    <img src="~/img/dropFile.svg" />
-                                </div>
-                                <div>
-                                    <div class="col"><img /></div>
-                                    <div class="col" style="color: #939DA8;font-size: 14px;font-weight:400;">
-                                        <img src="~/icons/download.svg" />
-                                        Drop your file here or <p style="color: #6B408C;font-size: 14px; font-weight: 500">Browse</p>
+            <form  asp-action="Add" asp-controller="Projects" method="post" enctype = "multipart/form-data">
+                <div class="blockRow">
+                    <div class="col">
+                        <div style="font-size: 14px;color: #939DA8;">Add submission</div>
+                        <div>
+                            <div class="dropBlock file-upload-wrapper mt-3">
+                                <center>
+                                    <div>
+                                        <img src="~/img/dropFile.svg" />
                                     </div>
+                                    <div>
+                                        <div class="col"><img /></div>
+                                        <div class="col" style="color: #939DA8;font-size: 14px;font-weight:400;">
+                                            <img src="~/icons/download.svg" />
+                                            Drop your file here or <p style="color: #6B408C;font-size: 14px; font-weight: 500">Browse</p>
+                                        </div>
+                                    </div>
+
+                                </center>
+
+
+
+                                <input class="file-input" id="fileElem" name="files" type="file" multiple onchange="handleFiles(this.files)">
+                            </div>
+
+
+                            <div style="padding-bottom: 3%;">
+                                <div style="padding-left:0px;padding-right:0px;" class="col" id="preview">
                                 </div>
-
-                            </center>
-
-
-
-                            <input class="file-input" id="fileElem" type="file" multiple onchange="handleFiles(this.files)">
-                        </div>
-
-
-                        <div style="padding-bottom: 3%;">
-                            <div style="padding-left:0px;padding-right:0px;" class="col" id="preview">
                             </div>
                         </div>
                     </div>
-                </div>
+                    <input name="id" style="display:none" type="text" value="@Model.Id" />
+                    <div class="col mt-5">
+                        <div class="boxForm">
+                            <label class="labelForm ml-2"><abbr style="color:#ffffff">_</abbr> Your id <abbr style="color:#ffffff">_</abbr></label>
+                            <input id="yourId" name="yourId" placeholder="Enter your first name" class="form-control mt-2" type="text" />
 
-                <div class="col mt-5">
-                    <div class="boxForm">
-                        <label class="labelForm ml-2"><abbr style="color:#ffffff">_</abbr> Your id <abbr style="color:#ffffff">_</abbr></label>
-                        <input id="yourId" placeholder="Enter your first name" class="form-control mt-2" type="text" />
+                        </div>
+                        <div class="boxForm mt-4" style="height: 70%; ">
+                            <label class="labelForm ml-2"><abbr style="color:#ffffff">_</abbr> Description <abbr style="color:#ffffff">_</abbr></label>
 
+                            <textarea id="description" name="description" style="height: 80%;" placeholder="Enter your first name" class="form-control mt-2"></textarea>
+                        </div>
                     </div>
-                    <div class="boxForm mt-4" style="height: 70%; ">
-                        <label class="labelForm ml-2"><abbr style="color:#ffffff">_</abbr> Description <abbr style="color:#ffffff">_</abbr></label>
-
-                        <textarea id="description" style="height: 80%;" placeholder="Enter your first name" class="form-control mt-2"></textarea>
-                    </div>
                 </div>
-            </div>
-            <div class="mt-5">
-                <button onclick="Add(this.files)" class="btn btn-primary btn-block" style="background: #6B408C; border-radius: 4px; font-weight: 600; font-size: 14px; color: #FFFFFF; ">
-                    Add
-                </button>
-            </div>
-
+                <div class="mt-5">
+                    <button class="btn btn-primary btn-block" style="background: #6B408C; border-radius: 4px; font-weight: 600; font-size: 14px; color: #FFFFFF; ">
+                        Add
+                    </button>
+                </div>
+            </form>
 
         </div>
     

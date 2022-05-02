@@ -21,57 +21,74 @@ namespace EasyMektep.Controllers
         [HttpGet]
         public IActionResult Index()
         {
-            ViewBag.LastOpened = _repository.GetLastOpened();
-            ViewBag.NewCourses = _repository.GetNewCourses();
-            ViewBag.AllCourses = _repository.GetAllCourses();
+            ViewBag.LastOpened = _repository.GetLastOpened(User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier).Value);
+            ViewBag.NewCourses = _repository.GetNewCourses(User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier).Value);
+            ViewBag.AllCourses = _repository.GetAllCourses(User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier).Value);
             return View();
         }
         [HttpPost]
         public void Complete(int id)
         {
-            _repository.Complete(id);
+            _repository.Complete(User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier).Value, id);
         }
         [HttpPost]
         public void Delete(int id)
         {
-            _repository.Delete(id);
+            _repository.Delete(User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier).Value, id);
         }
         [HttpGet]
         public IActionResult Course(int id)
         {
-            return View(_repository.GetCourse(id));
+            return View(_repository.GetCourse(User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier).Value, id));
         }
         [HttpGet]
         public IActionResult Assignment(int id)
         {
-            return View(_repository.GetAssignment(id));
+            return View(_repository.GetAssignment(User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier).Value, id));
         }
         [HttpPost]
         public void CompleteAssignment(int id)
         {
-            _repository.CompleteAssignment(id);
+            _repository.CompleteAssignment(User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier).Value, id);
         }
         [HttpPost]
         public void DeleteAssignment(int id)
         {
-            _repository.DeleteAssignment(id);
+            _repository.DeleteAssignment(User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier).Value, id);
         }
         [HttpPost]
-        public bool Add()
+        public IActionResult Add(int id, string yourId, string description, List<IFormFile> files, List<string> fname)
         {
-            var files = Request.Form.Files;
-            using (var ms = new MemoryStream())
+            List<IFormFile> currentFiles = new List<IFormFile>();
+            List<string> filesName = new List<string>();
+            foreach (IFormFile file in files)
             {
-                foreach (var item in files)
+                if(fname.Contains(file.FileName))
                 {
-                    item.CopyTo(ms);
-                    var fileBytes = ms.ToArray();
-                    string photo = Convert.ToBase64String(fileBytes);
+                    currentFiles.Add(file);
                 }
-                
             }
-            var b = files;
-            return true;
+            string path = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/Files");
+            //create folder if not exist
+            if (!Directory.Exists(path))
+                Directory.CreateDirectory(path);
+            //get file extension
+            foreach (var file in currentFiles)
+            {
+                FileInfo fileInfo = new FileInfo(file.FileName);
+                string fileName = file.FileName + fileInfo.Extension;
+
+                string fileNameWithPath = Path.Combine(path, fileName);
+
+                using (var stream = new FileStream(fileNameWithPath, FileMode.Create))
+                {
+                    file.CopyTo(stream);
+                }
+                filesName.Add(file.FileName);
+            }
+
+            _repository.AddAssignment(User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier).Value, id, yourId, description, filesName);
+            return RedirectToAction("Assignment", new { id=id });
         }
     }
 }

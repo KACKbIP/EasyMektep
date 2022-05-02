@@ -31,7 +31,7 @@ namespace EasyMektep.Controllers
                 ViewBag.StartDate = startDate.Value.ToString("dd MMM. yyyy", CultureInfo.CreateSpecificCulture("en-US"));
                 ViewBag.EndDate = endDate.Value.ToString("dd MMM. yyyy", CultureInfo.CreateSpecificCulture("en-US"));
             }
-            model = _repository.GetDashboard(startDate, endDate);
+            model = _repository.GetDashboard(User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier).Value, startDate, endDate);
             return View(model);
         }
     }

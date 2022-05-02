@@ -62,7 +62,25 @@
     align-items: center;
     outline: none;
 }
+.donut {
+    height: 0px;
+    margin-bottom: 35%;
+}
 .btn-success {
     background-color: #6B408C;
     border-color: #6B408C;
+}
+@media (max-width: 1000px) {
+    .prog {
+        font-size: 12px;
+    }
+    .progVal {
+        font-size: 22px;
+    }
+    .daterange {
+        width: 100%;
+    }
+    .donut {
+        margin-bottom: 50%;
+    }
 }

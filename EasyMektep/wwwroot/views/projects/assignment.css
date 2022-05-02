@@ -107,3 +107,8 @@
     background: #22222280;
     z-index: -1
 }
+@media (max-width: 1000px) {
+    .blockRow{
+        display:block;
+    }
+}

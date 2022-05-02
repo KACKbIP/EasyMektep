@@ -8,6 +8,6 @@ namespace EasyMektep.Interfaces
 {
     public interface IDashboardInterface
     {
-        DashboardModel GetDashboard(DateTime? startDate, DateTime? endDate);
+        DashboardModel GetDashboard(string userIdentifier, DateTime? startDate, DateTime? endDate);
     }
 }
