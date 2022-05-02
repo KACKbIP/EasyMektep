@@ -27,5 +27,9 @@ namespace EasyMektep.Repositories
             else
                 return null;
         }
+        public void Register(UserModel model)
+        {
+
+        }
     }
 }

@@ -9,5 +9,6 @@ namespace EasyMektep.Interfaces
     public interface IAccountInterface
     {
         public UserModel Login(string login, string password);
+        public void Register(UserModel model);
     }
 }

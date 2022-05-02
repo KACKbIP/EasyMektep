@@ -30,6 +30,7 @@ namespace EasyMektep
             services.AddTransient<IAccountInterface, AccountRepository>();
             services.AddTransient<IProjectInterface, ProjectRepository>();
             services.AddTransient<IStatisticsInterface, StatisticsRepository>();
+            services.AddTransient<IDashboardInterface, DashboardRepository>();
             services.AddMvc();
             services.AddAuthorization();
             services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)

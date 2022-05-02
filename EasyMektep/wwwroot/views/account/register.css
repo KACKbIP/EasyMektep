@@ -69,9 +69,25 @@ body {
     z-index:1;
     background-color:#FFFFFF;
 }
+.errorPass {
+    color: #FC514E;
+    font-size: 16px;
+}
+.labelFormError {
+    z-index: 0;
+    box-sizing: border-box;
+    border-radius: 4px;
+    border: 1px solid #FC514E;
+}
 .boxFormRadio {
     z-index: 0;
     border: 1px dashed #B5C2E9;
+    box-sizing: border-box;
+    border-radius: 4px;
+}
+.boxFormRadioError {
+    z-index: 0;
+    border: 1px solid #FC514E;
     box-sizing: border-box;
     border-radius: 4px;
 }

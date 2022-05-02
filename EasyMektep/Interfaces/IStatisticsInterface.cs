@@ -8,6 +8,6 @@ namespace EasyMektep.Interfaces
 {
     public interface IStatisticsInterface
     {
-        StatisticsModel GetStatistics();
+        StatisticsModel GetStatistics(DateTime? startDate, DateTime? endDate);
     }
 }

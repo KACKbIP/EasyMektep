@@ -7,6 +7,28 @@
 .lessonPC {
     display:none;
 }
+.completedActive {
+    background: #EBEDFB;
+    border-radius: 2px;
+    cursor: pointer;
+}
+
+.completed {
+    cursor: pointer;
+}
+.courseDropdown {
+    background: #FFFFFF;
+    border: 1px solid #EBEDFB;
+    box-sizing: border-box;
+    box-shadow: 0px 0px 1px rgba(0, 0, 0, 0.15), 0px 4px 6px rgba(0, 0, 0, 0.06), 0px 6px 12px rgba(33, 52, 69, 0.03);
+    border-radius: 8px 0px 8px 8px;
+    margin-right: 10%;
+}
+
+.courseDropdownitem {
+    font-weight: 400;
+    font-size: 14px;
+}
 .slick-dots-Re {
     background-color: transparent;
     position: absolute;
@@ -236,6 +258,18 @@
     padding-top: 2%;
     padding-bottom: 0px;
     margin-right: 1%;
+}
+.daterange {
+    background: #F6F6F9;
+    border-radius: 4px;
+    width: 50%;
+    align-items: center;
+    outline: none;
+}
+
+.btn-success {
+    background-color: #6B408C;
+    border-color: #6B408C;
 }
 .titleDiv {
     font-style: normal;

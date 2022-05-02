@@ -47,3 +47,22 @@
     font-size: 16px;
     color: #7F7B83;
 }
+.completedActive {
+    background: #EBEDFB;
+    border-radius: 2px;
+    cursor:pointer;
+}
+.completed {
+    cursor:pointer;
+}
+.daterange {
+    background: #F6F6F9;
+    border-radius: 4px;
+    width: 50%;
+    align-items: center;
+    outline: none;
+}
+.btn-success {
+    background-color: #6B408C;
+    border-color: #6B408C;
+}
