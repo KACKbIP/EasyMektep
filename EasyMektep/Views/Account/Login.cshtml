@@ -44,7 +44,11 @@
                                 </div>
                                 <div class="boxForm form-group mt-5">
                                     <label for="password" class="labelForm ml-2"><abbr style="color:#ffffff">_</abbr> Password <abbr style="color:#ffffff">_</abbr></label>
-                                    <input type="password" placeholder="Enter your password" class="form-control" name="password" id="password">
+                                    <div style="display:flex">
+                                        <input type="password" placeholder="Enter your password" class="form-control" name="password" id="password">
+                                        <img onclick="ShowPassword()" class="float-right mr-3" src="~/icons/showPassword.svg" />
+                                    </div>
+
                                 </div>
                                 <div class="form-row">
                                     <div class="col">
@@ -58,7 +62,7 @@
                                     </div>
 
                                 </div>
-                                <button type="submit" name="signin" id="signin"  class="btn btn-primary btn-block mt-5">Sing in</button>
+                                <button type="submit" name="signin" id="signin" class="btn btn-primary btn-block mt-5">Sing in</button>
                             </form>
                         </div>
                     </div>
@@ -67,24 +71,24 @@
                     </center>
                 </div>
                 <img class="imgLine" src="~/img/line.svg" />
-                    <div class="col-xxl col-md-8 col-sm-7 mt-3">
-                        <center>
-                            <div class="title">
-                                Easy Mektep
-                            </div>
-                            <div class="desc">
-                                Education tracker, that helps to improve your skills
-                            </div>
-
-                        </center>
-                        <div>
-
-                            <img id="imgMan" src="~/img/Man.svg" />
-                            <img id="imgWoman" src="~/img/Woman.svg" />
+                <div class="col-xxl col-md-8 col-sm-7 mt-3">
+                    <center>
+                        <div class="title">
+                            Easy Mektep
                         </div>
+                        <div class="desc">
+                            Education tracker, that helps to improve your skills
+                        </div>
+
+                    </center>
+                    <div>
+
+                        <img id="imgMan" src="~/img/Man.svg" />
+                        <img id="imgWoman" src="~/img/Woman.svg" />
                     </div>
                 </div>
             </div>
+        </div>
     </section>
     <footer class="tac mt-5 mb-1">
         <div class="container">
@@ -93,3 +97,18 @@
     </footer>
 </body>
 </html>
+
+<script type="text/javascript" src="//code.jquery.com/jquery-1.11.0.min.js"></script>
+<script type="text/javascript" src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+<script type="text/javascript" src="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
+<script type="text/javascript">
+
+    function ShowPassword() {
+        if (document.getElementById('password').type == 'password') {
+            document.getElementById('password').type = 'text';
+        }
+        else {
+            document.getElementById('password').type = 'password';
+        }
+    }
+</script>
