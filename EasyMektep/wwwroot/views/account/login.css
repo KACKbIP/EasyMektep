@@ -273,4 +273,13 @@ input[type='radio']:checked:after {
         margin-top: 3%;
     }
 }
+@media (max-width: 800px) {
+    #imgMan {
+        display:none;
+    }
+    #imgWoman {
+        display: none;
+    }
+}
+
 

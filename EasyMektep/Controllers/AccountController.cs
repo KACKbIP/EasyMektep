@@ -23,14 +23,20 @@ namespace EasyMektep.Controllers
             return View();
         }
         [HttpPost]
-        public async Task<IActionResult> Login(string login, string password)
+        public async Task<IActionResult> Login(string login, string password, string rememberMe)
         {
             if (ModelState.IsValid)
             {
                 UserModel profile = _repository.Login(login, password);
                 if (profile != null)
                 {
+                    bool isPersistent = false;
+                    if (rememberMe != null)
+                        if (rememberMe == "on")
+                            isPersistent = true;
+
                     var identity = new ClaimsIdentity(CookieAuthenticationDefaults.AuthenticationScheme);
+                    identity.AddClaim(new Claim(ClaimTypes.IsPersistent, isPersistent.ToString()));
                     identity.AddClaim(new Claim(ClaimTypes.NameIdentifier, profile.Id.ToString()));
                     identity.AddClaim(new Claim(ClaimTypes.Name, profile.Name));
                     identity.AddClaim(new Claim(ClaimTypes.Surname, profile.Surname));
@@ -40,7 +46,7 @@ namespace EasyMektep.Controllers
                     identity.AddClaim(new Claim(ClaimTypes.Gender, profile.Gender.ToString()));
                     identity.AddClaim(new Claim(ClaimTypes.Uri, profile.ImgUrl));
                     var principal = new ClaimsPrincipal(identity);
-
+                    
                     await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, principal);
 
                     return this.RedirectToAction("Index", "Dashboard");
