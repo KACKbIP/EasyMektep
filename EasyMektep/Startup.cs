@@ -22,6 +22,7 @@ namespace EasyMektep
         }
 
         public IConfiguration Configuration { get; }
+        public static string _backUrl { get; set; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
@@ -39,6 +40,7 @@ namespace EasyMektep
                     options.LoginPath = new Microsoft.AspNetCore.Http.PathString("/Account/Login");
                     options.AccessDeniedPath = new Microsoft.AspNetCore.Http.PathString("/Account/Login");
                 });
+            _backUrl = Configuration.GetConnectionString("BackInPhp");
         }
         
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
