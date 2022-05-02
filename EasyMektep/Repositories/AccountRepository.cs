@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
+using System.Text;
 using System.Threading.Tasks;
 
 namespace EasyMektep.Repositories
@@ -39,7 +40,11 @@ namespace EasyMektep.Repositories
         }
         public void Register(UserModel model)
         {
-
+            using (var httpClient = new HttpClient())
+            {                
+                var httpContent = new StringContent(JsonConvert.SerializeObject(model), Encoding.UTF8, "application/json");
+                var httpResponse = httpClient.PostAsync(Startup._backUrl + "Register", httpContent).Result;
+            }
         }
     }
 }
