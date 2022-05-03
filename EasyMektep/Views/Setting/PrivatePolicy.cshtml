@@ -1,0 +1,22 @@
+﻿@{
+    ViewData["Title"] = "Settings";
+}
+<div style="display:flex">
+    <div class="col-2 mr-5" style="padding-left:0px;">
+        <div style="display: flex; cursor: pointer">
+            <div style="padding-left: 0px;" class="col-1"><img src="~/icons/personalGray.svg" /></div>
+            <div onclick="location.href='/Setting/Index'" style="padding-left: 10px; font-weight: 400; font-size: 16px; color: #211E1D;" class="col">Personal data</div>
+        </div>
+        <div onclick="location.href='/Setting/PrivatePolicy'" style="cursor: pointer;font-size: 14px; font-weight: 600; color: #6B408C; " class="mt-3">Privacy policy</div>
+        <div onclick="location.href='/Setting/ChangePassword'" style="cursor: pointer;font-size: 14px; color: #939DA8;" class="mt-3">Change password</div>
+    </div>
+    <div id="personPhoto" class="col-1 mr-5">
+        <div>
+            <img style="height: auto;width: 100%; border-radius: 100px;" src="@User.FindFirst(System.Security.Claims.ClaimTypes.Uri).Value" />
+        </div>
+    </div>
+    <div id="privatePolicy" class="col-6">
+        
+    </div>
+
+</div>

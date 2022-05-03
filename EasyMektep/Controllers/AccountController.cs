@@ -18,6 +18,15 @@ namespace EasyMektep.Controllers
         {
             this._repository = repository;
         }
+        public IActionResult ForgotPassword()
+        {
+            return View();
+        }
+        [HttpPost]
+        public IActionResult ForgotPassword(string email)
+        {
+            return RedirectToAction("Login");
+        }
         public IActionResult Login()
         {
             return View();

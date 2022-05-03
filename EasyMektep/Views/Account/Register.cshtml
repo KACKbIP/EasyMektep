@@ -70,43 +70,42 @@
                             Enter your personal information details to continue the registration
                         </div>
                         <div class="mt-5">
-                            <div id="nameBox" class="boxForm form-group">
-                                <label for="firstName" class="labelForm ml-2"><abbr style="color:#ffffff">_</abbr> First name <img id="nameError" style="display:none" src="~/icons/error.svg" />  <abbr style="color:#ffffff">_</abbr></label>
-                                <input type="text" placeholder="Enter your first name" class="form-control" id="firstName">
-                            </div>
-                            <div id="surnameBox" class="boxForm form-group mt-5">
-                                <label for="secondName" class="labelForm ml-2"><abbr style="color:#ffffff">_</abbr> Second name <img id="surnameError" style="display:none" src="~/icons/error.svg" />  <abbr style="color:#ffffff">_</abbr></label>
-                                <input type="text" placeholder="Enter your second name" class="form-control" id="secondName">
-                            </div>
-                            <div id="emailBox" class="boxForm form-group mt-5">
-                                <label for="email" class="labelForm ml-2"><abbr style="color:#ffffff">_</abbr> E-mail <img id="emailError" style="display:none" src="~/icons/error.svg" />  <abbr style="color:#ffffff">_</abbr></label>
-                                <input type="email" placeholder="Enter your e-mail" class="form-control" id="email" aria-describedby="emailHelp">
-                            </div>
-                            <div id="birthDayBox" class="boxForm form-group mt-5">
-                                <label for="birthDay" class="labelForm ml-2"><abbr style="color:#ffffff">_</abbr> Birth day <img id="birthDayError" style="display:none" src="~/icons/error.svg" />  <abbr style="color:#ffffff">_</abbr></label>
-                                <input type="text" onfocus="(this.type='date')" placeholder="Enter your birth day" class="form-control" id="birthDay">
-                            </div>
-                            <div  id="radioBox" class="boxFormRadio form-group form-check mt-5">
-                                <label class="labelFormEx"><abbr style="color:#ffffff">_</abbr> I am <img id="radioError" style="display:none" src="~/icons/error.svg" />   <abbr style="color:#ffffff">_</abbr> </label>
-                                <div class="row mt-3 mb-2 ml-1 mr-1">
-                                    <div class="col">
-                                        <input type="radio" name="radio" class="form-check-input" id="woman">
-                                        <label class="form-check-label" for="woman">Woman</label>
-                                    </div>
-                                    <div class="col">
-                                        <input type="radio" name="radio" class="form-check-input" id="man">
-                                        <label class="form-check-label" for="man">Man</label>
-                                    </div>
-                                    <div class="col">
-                                        <input type="radio" name="radio" class="form-check-input" id="notSay">
-                                        <label class="form-check-label" for="notSay"><nobr>Prefer to not say</nobr></label>
-                                    </div>
+                                <div id="nameBox" class="boxForm form-group">
+                                    <label for="firstName" class="labelForm ml-2"><abbr style="color:#ffffff">_</abbr> First name <img id="nameError" style="display:none" src="~/icons/error.svg" />  <abbr style="color:#ffffff">_</abbr></label>
+                                    <input required type="text" placeholder="Enter your first name" class="form-control" id="firstName">
                                 </div>
+                                <div id="surnameBox" class="boxForm form-group mt-5">
+                                    <label for="secondName" class="labelForm ml-2"><abbr style="color:#ffffff">_</abbr> Second name <img id="surnameError" style="display:none" src="~/icons/error.svg" />  <abbr style="color:#ffffff">_</abbr></label>
+                                    <input required type="text" placeholder="Enter your second name" class="form-control" id="secondName">
+                                </div>
+                                <div id="emailBox" class="boxForm form-group mt-5">
+                                    <label for="email" class="labelForm ml-2"><abbr style="color:#ffffff">_</abbr> E-mail <img id="emailError" style="display:none" src="~/icons/error.svg" />  <abbr style="color:#ffffff">_</abbr></label>
+                                    <input required type="email" placeholder="Enter your e-mail" class="form-control" id="email" aria-describedby="emailHelp">
+                                </div>
+                                <div id="birthDayBox" class="boxForm form-group mt-5">
+                                    <label for="birthDay" class="labelForm ml-2"><abbr style="color:#ffffff">_</abbr> Birth day <img id="birthDayError" style="display:none" src="~/icons/error.svg" />  <abbr style="color:#ffffff">_</abbr></label>
+                                    <input required type="text" onfocus="(this.type='date')" placeholder="Enter your birth day" class="form-control" id="birthDay">
+                                </div>
+                                <div id="radioBox" class="boxFormRadio form-group form-check mt-5">
+                                    <label class="labelForm"><abbr style="color:#ffffff">_</abbr> I am <img id="radioError" style="display:none" src="~/icons/error.svg" />  <abbr style="color:#ffffff">_</abbr> </label>
+                                    <div class="row mt-3 mb-2 ml-1 mr-1">
+                                        <div class="col">
+                                            <input type="radio" name="radio" class="form-check-input" id="woman">
+                                            <label class="form-check-label" for="woman">Woman</label>
+                                        </div>
+                                        <div class="col">
+                                            <input type="radio" name="radio" class="form-check-input" id="man">
+                                            <label class="form-check-label" for="man">Man</label>
+                                        </div>
+                                        <div class="col">
+                                            <input type="radio" name="radio" class="form-check-input" id="notSay">
+                                            <label class="form-check-label" for="notSay"><nobr>Prefer to not say</nobr></label>
+                                        </div>
+                                    </div>
 
 
-                            </div>
-                            <button onclick="Next()" type="submit" class="btn btn-primary btn-block mt-5">Next</button>
-
+                                </div>
+                                <button onclick="Next()" type="submit" class="btn btn-primary btn-block mt-5">Next</button>
                         </div>
                     </div>
                     <div id="pass" style="display:none">
